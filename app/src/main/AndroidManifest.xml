@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <!-- Нужно для проверки, установлены ли у пользователя РФ-сервисы из
+         RuServicesBypass.PACKAGES (настройка "Не обходить российские сервисы") —
+         начиная с Android 11 PackageManager по умолчанию не видит чужие пакеты. -->
+    <queries>
+        <package android:name="ru.gosuslugi.online" />
+        <package android:name="ru.sberbankmobile" />
+        <package android:name="ru.vtb24.mobilebanking.android" />
+        <package android:name="com.idamob.tinkoff.android" />
+        <package android:name="ru.alfabank.mobile.android" />
+        <package android:name="com.vkontakte.android" />
+        <package android:name="ru.mail.mailapp" />
+        <package android:name="ru.yandex.searchplugin" />
+        <package android:name="ru.yandex.taxi" />
+        <package android:name="ru.yandex.market" />
+        <package android:name="ru.yandex.music" />
+        <package android:name="ru.mts.mtsbank" />
+        <package android:name="com.wildberries.ru" />
+        <package android:name="ru.ozon.app.android" />
+    </queries>
+
+    <application
+        android:name=".VpnClientApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.VpnClient"
+        android:supportsRtl="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.VpnClient">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Позволяет открывать приложение по ссылкам-подпискам/конфигам из браузера -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="vmess" />
+                <data android:scheme="vless" />
+                <data android:scheme="trojan" />
+                <data android:scheme="ss" />
+                <data android:scheme="sub" />
+            </intent-filter>
+        </activity>
+
+        <!-- Ловит redirect_uri после входа через Google/Яндекс/VK/Госуслуги (см. data/auth/OAuthConfig.kt) -->
+        <activity
+            android:name=".data.auth.AuthCallbackActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="loudvpn" android:host="auth-callback" />
+            </intent-filter>
+        </activity>
+
+        <!-- Сервис туннеля. permission BIND_VPN_SERVICE обязателен для системы Android VPN. -->
+        <service
+            android:name=".vpn.VpnConnectionService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+
+    </application>
+</manifest>

@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">LoudVPN</string>
+    <string name="app_tagline">Громко и свободно</string>
+    <string name="notification_channel_vpn">VPN подключение</string>
+    <string name="notification_connected">Подключено: %1$s</string>
+
+    <!-- Авторизация -->
+    <string name="auth_title">Добро пожаловать в LoudVPN</string>
+    <string name="auth_subtitle">Войдите, чтобы синхронизировать профили и настройки</string>
+    <string name="auth_continue_with_google">Продолжить с Google</string>
+    <string name="auth_continue_with_yandex">Продолжить с Яндекс ID</string>
+    <string name="auth_continue_with_vk">Продолжить с VK ID</string>
+    <string name="auth_continue_with_gosuslugi">Продолжить с Госуслугами</string>
+    <string name="auth_or_divider">или по почте</string>
+    <string name="auth_email_label">Электронная почта</string>
+    <string name="auth_password_label">Пароль</string>
+    <string name="auth_login_button">Войти</string>
+    <string name="auth_register_button">Зарегистрироваться</string>
+    <string name="auth_switch_to_register">Нет аккаунта? Зарегистрироваться</string>
+    <string name="auth_switch_to_login">Уже есть аккаунт? Войти</string>
+    <string name="auth_error_invalid_email">Введите корректную почту</string>
+    <string name="auth_error_short_password">Пароль должен быть не короче 6 символов</string>
+    <string name="auth_error_generic">Не удалось войти. Попробуйте ещё раз</string>
+    <string name="auth_loading">Входим…</string>
+
+    <!-- Настройки -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_account">Аккаунт</string>
+    <string name="settings_logout">Выйти из аккаунта</string>
+    <string name="settings_bypass_ru_title">Не обходить российские сервисы</string>
+    <string name="settings_bypass_ru_subtitle">Госуслуги, банки, VK и Яндекс будут работать напрямую, минуя VPN-туннель</string>
+    <string name="settings_core">Ядро VPN</string>
+    <string name="settings_core_value">Не подключено (заглушка)</string>
+    <string name="settings_version">Версия</string>
+</resources>
