@@ -1,7 +1,33 @@
-cd vpn-client-android
-git init
-git add .
-git commit -m "LoudVPN: авторизация, обход РФ-сервисов, ребрендинг"
-git branch -M main
-git remote add origin https://github.com/ТВОЙ_ЛОГИН/loudvpn-android.git
-git push -u origin main
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.7
+
+      - name: Build debug APK
+        run: gradle assembleDebug --no-daemon
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: loudvpn-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
