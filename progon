@@ -1,7 +1,0 @@
-cd vpn-client-android
-git init
-git add .
-git commit -m "LoudVPN: авторизация, обход РФ-сервисов, ребрендинг"
-git branch -M main
-git remote add origin https://github.com/ТВОЙ_ЛОГИН/loudvpn-android.git
-git push -u origin main
